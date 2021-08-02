@@ -26,6 +26,12 @@ namespace JWTAuthentication.Controllers
         [HttpGet]
         public IEnumerable<WeatherForecast> Get()
         {
+            // Microsoft.AspNetCore.Http.HttpContext context
+            //Microsoft.AspNetCore.Http.HttpContext context
+            //Console.WriteLine(context.Request.Headers.ToString());
+            Microsoft.Extensions.Primitives.StringValues outt = "";
+            HttpContext.Request.Headers.TryGetValue("Authorization", out outt);
+            string token = outt.ToString().Split(" ")[1];
             var rng = new Random();
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast
             {
@@ -34,6 +40,11 @@ namespace JWTAuthentication.Controllers
                 Summary = Summaries[rng.Next(Summaries.Length)]
             })
             .ToArray();
+
+            //var handler = new JwtSecurityTokenHandler();
+            //var jwtSecurityToken = handler.ReadJwtToken(token);
+            //Console.WriteLine(jwtSecurityToken.Claims.ToList()[0]);
+            //Console.WriteLine(jwtSecurityToken.Claims.ToList()[1]);
         }
     }
 }

@@ -46,7 +46,7 @@ namespace JWTAuthentication.Controllers
                 new Claim(JwtRegisteredClaimNames.Name , userInfo.userName),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
             };
-            var exp = DateTime.Now.AddMinutes(1);
+            var exp = DateTime.Now.AddMinutes(60);
             var token = new JwtSecurityToken(_config["Jwt:Issuer"],
                 _config["Jwt:Issuer"],
                 claims,
